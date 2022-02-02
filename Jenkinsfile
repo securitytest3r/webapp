@@ -7,11 +7,19 @@ pipeline
   }
   stages
   {
+	stage ('Getting Started')
+	{
+		steps
+		{
+			sh 'set +e'
+		}
+	}  
 	stage ('Check-Git-Secrets')
 	{
 		steps
 		{
-			sh 'docker run -t dxa4481/trufflehog --json https://github.com/securitytest3r/webapp.git'
+			sh 'docker run -t dxa4481/trufflehog --json https://github.com/securitytest3r/webapp.git > trufflehog_output.json'
+			sh 'cat trufflehog_output.json'
 		}
 	}
   
