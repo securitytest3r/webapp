@@ -11,8 +11,6 @@ pipeline
 	{
 		steps
 		{
-			sh 'rm trufflehog || true'
-			sh 'docker pull dxa4481/trufflehog'
 			sh 'docker run -t dxa4481/trufflehog --json https://github.com/securitytest3r/webapp.git > trufflehog_output.json'
 			sh 'cat trufflehog_output.json | python3 -m json.tool'
 		}
@@ -23,7 +21,6 @@ pipeline
       steps
 	  {
         sh 'echo "PATH = ${PATH}"'
-        sh 'git clone https://github.com/rsftsi/helloworld-JSPmvn .'
       }
     }
     
@@ -41,7 +38,7 @@ pipeline
         {
             sshagent(['tomcat'])
             {
-                sh 'scp -o StrictHostKeyChecking=no target/*.war tomcat@192.168.206.133:/var/lib/tomcat9/webapps/helloworld.war'
+                sh 'scp -o StrictHostKeyChecking=no target/*.war tomcat@192.168.206.133:/var/lib/tomcat9/webapps/webapp.war'
             }      
         }       
     }
