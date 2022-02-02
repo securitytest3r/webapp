@@ -12,7 +12,7 @@ pipeline
 		steps
 		{
 			sh 'docker run -t dxa4481/trufflehog --json https://github.com/securitytest3r/webapp.git > trufflehog_output.json'
-			sh 'cat trufflehog_output.json | python3 -m json.tool'
+			sh 'cat trufflehog_output.json'
 		}
 	}
   
