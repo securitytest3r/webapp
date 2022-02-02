@@ -14,6 +14,7 @@ pipeline
 			sh 'set +e'
 		}
 	}  
+	
 	stage ('Check-Git-Secrets')
 	{
 		steps
@@ -21,6 +22,17 @@ pipeline
 			sh 'set +e'
 			sh 'docker run -t dxa4481/trufflehog --json https://github.com/securitytest3r/webapp.git > trufflehog_output.json || true'
 			sh 'cat trufflehog_output.json'
+		}
+	}
+	
+	stage ('Source Composition Analysis')
+	{
+		steps
+		{
+		     sh 'rm owasp-* || true'
+		     sh 'wget https://raw.githubusercontent.com/devopssecure/webapp/master/owasp-dependency-check.sh'	
+		     sh 'chmod +x owasp-dependency-check.sh'
+		     sh 'bash owasp-dependency-check.sh'
 		}
 	}
   
